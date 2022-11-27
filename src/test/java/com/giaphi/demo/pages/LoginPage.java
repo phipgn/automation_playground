@@ -10,9 +10,9 @@ public class LoginPage extends BasePage {
     }
 
     // Locators
-    By byUsernameInput = By.xpath("//input[@placeholder='Username']");
-    By byPasswordInput = By.xpath("//input[@placeholder='Password']");
-    By bySignInButton = By.xpath("//button[text()='Sign In']");
+    By byUsernameInput = By.id("user-name");
+    By byPasswordInput = By.id("password");
+    By bySignInButton = By.id("login-button");
 
     // Elements
     public WebElement usernameInput() { return getElement(byUsernameInput); }

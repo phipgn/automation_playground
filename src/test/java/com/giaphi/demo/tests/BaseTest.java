@@ -13,7 +13,7 @@ public class BaseTest {
         driver = DriverHelper.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        driver.get("https://porscheadmin.qa.flex.cafe/login");
+        driver.get("https://www.saucedemo.com/");
     }
 
     @AfterTest

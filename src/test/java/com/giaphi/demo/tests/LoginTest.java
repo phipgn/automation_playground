@@ -1,6 +1,6 @@
 package com.giaphi.demo.tests;
 
-import com.giaphi.demo.pages.DashboardPage;
+import com.giaphi.demo.pages.InventoryPage;
 import com.giaphi.demo.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,11 +15,11 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLogin() {
-        loginPage.inputUsername("404_automation_seller");
-        loginPage.inputPassword("hBfpQ$yk&a$nX6qj");
+        loginPage.inputUsername("standard_user");
+        loginPage.inputPassword("secret_sauce");
         loginPage.signInButton().click();
 
-        DashboardPage dashboardPage = new DashboardPage(driver);
-        Assert.assertTrue(dashboardPage.pageHeader().isDisplayed());
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        Assert.assertTrue(inventoryPage.pageHeader().isDisplayed());
     }
 }

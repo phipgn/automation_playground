@@ -9,7 +9,7 @@
 ## CLI commands
 ### To copy all dependencies into "lib" folder:
 ```
-mvn dependency:copy-dependencies -DoutputDirectory=lib/ -DskipTests
+mvn dependency:copy-dependencies -DoutputDirectory=lib/ -DskipTests=true
 ```
 
 ### To clean and compile source code under `src/main`:

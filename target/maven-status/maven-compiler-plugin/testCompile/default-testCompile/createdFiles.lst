@@ -1,7 +1,0 @@
-com\giaphi\demo\helpers\DriverHelper.class
-com\giaphi\demo\tests\LoginTest.class
-com\giaphi\demo\helpers\WaitHelper.class
-com\giaphi\demo\pages\DashboardPage.class
-com\giaphi\demo\tests\BaseTest.class
-com\giaphi\demo\pages\LoginPage.class
-com\giaphi\demo\pages\BasePage.class
