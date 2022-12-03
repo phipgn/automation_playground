@@ -24,16 +24,16 @@ ENV PATH "$PATH:$MAVEN_HOME/bin"
 COPY . /java-selenium-demo
 WORKDIR /java-selenium-demo
 
+# Install Chrome driver
+ARG DRIVER_DIR=/java-selenium-demo/drivers
+RUN mkdir -p ${DRIVER_DIR}/
+RUN CHROME_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE) && \
+    curl -ko ${DRIVER_DIR}/chrome_driver.zip https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip && \
+    unzip ${DRIVER_DIR}/chrome_driver.zip -d ${DRIVER_DIR}/
+
 # Install Chrome
 RUN curl -ko /tmp/chrome.deb ${CHROME_URL}
 RUN apt-get install -y /tmp/chrome.deb
-
-# Install Chrome driver
-ARG DRIVER_DIR=/java-selenium-demo/drivers
-RUN mkdir -p ${DRIVER_DIR}
-RUN CHROME_VERSION=$(google-chrome --product-version) && \
-    curl -ko ${DRIVER_DIR}/chrome_driver.zip https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip && \
-    unzip ${DRIVER_DIR}/chrome_driver.zip -d ${DRIVER_DIR}
 
 # Install Java 11
 RUN mkdir -p ${JAVA_HOME}
