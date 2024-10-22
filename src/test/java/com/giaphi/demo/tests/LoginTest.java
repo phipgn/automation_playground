@@ -17,7 +17,7 @@ public class LoginTest extends BaseTest {
     @BeforeMethod
     public void BeforeMethod() {
         driver = setUpDriver();
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(driver); // object initialization
     }
 
     @DataProvider(name = "loginData")
@@ -29,14 +29,12 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "loginData")
+    @Test(dataProvider = "loginData") // annotation
     public void testLogin(String username, String password) {
         loginPage.inputUsername(username);
         loginPage.inputPassword(password);
-        loginPage.signInButton().click();
-
-        InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.pageHeader().isDisplayed());
+        InventoryPage inventoryPage = loginPage.clickSignInBtn();
+        Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
     }
 
     @AfterMethod

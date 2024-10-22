@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
-    public LoginPage(WebDriver _driver) {
+    public LoginPage(WebDriver _driver) { // not a method, a constructor (hàm dựng)
         super(_driver);
     }
 
@@ -15,9 +15,9 @@ public class LoginPage extends BasePage {
     By bySignInButton = By.id("login-button");
 
     // Elements
-    public WebElement usernameInput() { return getElement(byUsernameInput); }
-    public WebElement passwordInput() { return getElement(byPasswordInput); }
-    public WebElement signInButton() { return getElement(bySignInButton); }
+    private WebElement usernameInput() { return getElement(byUsernameInput); }
+    private WebElement passwordInput() { return getElement(byPasswordInput); }
+    private WebElement signInButton() { return getElement(bySignInButton); }
 
     // Actions
     public void inputUsername(String username) {
@@ -26,5 +26,13 @@ public class LoginPage extends BasePage {
 
     public void inputPassword(String password) {
         inputText(passwordInput(), password);
+    }
+//    public void clickSignInBtn() {
+//        this.signInButton().click();
+//    }
+
+    public InventoryPage clickSignInBtn() {
+        this.signInButton().click();
+        return new InventoryPage(driver);
     }
 }
