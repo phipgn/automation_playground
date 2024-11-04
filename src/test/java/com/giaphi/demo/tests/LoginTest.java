@@ -20,21 +20,61 @@ public class LoginTest extends BaseTest {
         loginPage = new LoginPage(driver); // object initialization
     }
 
-    @DataProvider(name = "loginData")
-    public static Object[][] getLoginData() {
-        return new Object[][] {
-            { "standard_user", "secret_sauce" },
-            { "visual_user", "secret_sauce" },
-            { "error_user", "secret_sauce" }
-        };
+//    @DataProvider(name = "loginData")
+//    public static Object[][] getLoginData() {
+//        return new Object[][] {
+//            { "standard_user", "secret_sauce" },
+//            { "visual_user", "secret_sauce" },
+//            { "error_user", "secret_sauce" }
+//        };
+//    }
+
+//    @Test(dataProvider = "loginData") // annotation
+//    public void testLogin(String username, String password) {
+//        loginPage.inputUsername(username);
+//        loginPage.inputPassword(password);
+//        InventoryPage inventoryPage = loginPage.clickSignInBtn();
+//        Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
+//    }
+
+    @Test
+    public void test_verifyUiElements() {
+        Assert.assertTrue(loginPage.getHeader().isDisplayed());
+        Assert.assertTrue(loginPage.getUsernameInput().isDisplayed());
+        Assert.assertTrue(loginPage.getPasswordInput().isDisplayed());
+        Assert.assertTrue(loginPage.getLoginButton().isDisplayed());
     }
 
-    @Test(dataProvider = "loginData") // annotation
-    public void testLogin(String username, String password) {
-        loginPage.inputUsername(username);
-        loginPage.inputPassword(password);
+    @Test
+    public void testLogin_CorrectUsername_CorrectPassword() {
+        loginPage.inputUsername("standard_user");
+        loginPage.inputPassword("secret_sauce");
         InventoryPage inventoryPage = loginPage.clickSignInBtn();
         Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
+    }
+
+    @Test
+    public void testLogin_CorrectUsername_IncorrectPassword() {
+        loginPage.inputUsername("standard_user");
+        loginPage.inputPassword("secret_sauce1");
+        loginPage.clickSignInBtn();
+        Assert.assertTrue(loginPage.getErrorMessage().isDisplayed());
+    }
+
+    @Test
+    public void testLogin_IncorrectUsername_CorrectPassword() {
+        loginPage.inputUsername("standard_user1");
+        loginPage.inputPassword("secret_sauce");
+        loginPage.clickSignInBtn();
+        Assert.assertTrue(loginPage.getErrorMessage().isDisplayed());
+    }
+
+    @Test
+    public void testLogin_IncorrectUsername_IncorrectPassword() {
+        loginPage.inputUsername("standard_user1");
+        loginPage.inputPassword("secret_sauce1");
+        loginPage.clickSignInBtn();
+        Assert.assertTrue(loginPage.getErrorMessage().isDisplayed());
     }
 
     @AfterMethod

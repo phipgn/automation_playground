@@ -9,30 +9,51 @@ public class LoginPage extends BasePage {
         super(_driver);
     }
 
-    // Locators
+    // Locators: Id, Css Locator, Xpath
+    By byHeader = By.className("login_logo");
     By byUsernameInput = By.id("user-name");
     By byPasswordInput = By.id("password");
     By bySignInButton = By.id("login-button");
+    By byErrorMessage = By.cssSelector("h3[data-test='error']");
 
     // Elements
-    private WebElement usernameInput() { return getElement(byUsernameInput); }
-    private WebElement passwordInput() { return getElement(byPasswordInput); }
-    private WebElement signInButton() { return getElement(bySignInButton); }
+    public WebElement getHeader() {
+        return getElement(byHeader);
+    }
+
+    public WebElement getUsernameInput() {
+        return getElement(byUsernameInput);
+    }
+
+    public WebElement getPasswordInput() {
+        return getElement(byPasswordInput);
+    }
+
+    public WebElement getLoginButton() {
+        return getElement(bySignInButton);
+    }
+
+    public WebElement getErrorMessage() {
+        return getElement(byErrorMessage);
+    }
 
     // Actions
     public void inputUsername(String username) {
-        inputText(usernameInput(), username);
+        inputText(getUsernameInput(), username);
     }
 
     public void inputPassword(String password) {
-        inputText(passwordInput(), password);
+        inputText(getPasswordInput(), password);
     }
-//    public void clickSignInBtn() {
-//        this.signInButton().click();
-//    }
 
     public InventoryPage clickSignInBtn() {
-        this.signInButton().click();
+        this.getLoginButton().click();
         return new InventoryPage(driver);
+    }
+
+    public InventoryPage login(String username, String password) {
+        inputUsername(username);
+        inputPassword(password);
+        return clickSignInBtn();
     }
 }
