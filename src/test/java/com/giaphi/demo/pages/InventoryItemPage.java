@@ -10,11 +10,27 @@ public class InventoryItemPage extends BasePage {
     }
 
     // Locators
-    By byItemDescription = By.className("inventory_details_desc");
+    By byTitle = By.cssSelector("[data-test='inventory-item-name']");
+    By byDescription = By.cssSelector("[data-test='inventory-item-desc']");
+    By byPrice = By.cssSelector("[data-test='inventory-item-price']");
     By byItemImage = By.cssSelector("img.inventory_details_img");
 
-    //
-    public WebElement getItemDesc() { return getElement(byItemDescription); }
+    // Elements
+    public String getTitle() {
+        return getElement(byTitle).getText();
+    }
+
+    public String getDescription() {
+        return getElement(byDescription).getText();
+    }
+
+    public String getPrice() {
+        return getElement(byPrice).getText();
+    }
+
     public WebElement getItemImage() { return getElement(byItemImage); }
+
+    // Actions
+    
 }
 
