@@ -31,10 +31,10 @@ public class DriverHelper {
      public static WebDriver getDriver() {
          var path = System.getProperty("user.dir");
          ChromeOptions options = new ChromeOptions();
-         options.addArguments("--remote-allow-origins=*");
+         //options.addArguments("--remote-allow-origins=*");
 
          // This line for Windows
-         System.setProperty("webdriver.chrome.driver", path + "\\drivers\\chromedriver.exe");
+         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
 
          // These lines for Linux
 //         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
