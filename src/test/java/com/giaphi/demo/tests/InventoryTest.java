@@ -3,6 +3,10 @@ package com.giaphi.demo.tests;
 import com.giaphi.demo.pages.InventoryItemPage;
 import com.giaphi.demo.pages.InventoryPage;
 import com.giaphi.demo.pages.LoginPage;
+import com.giaphi.demo.pages.ProductItem;
+
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -32,14 +36,25 @@ public class InventoryTest extends BaseTest {
 
     @Test
     public void test_clickOnProductItemSuccessfully() {
-        // Specify the index of the item to click (e.g., 0 for the first item)
-        int itemIndex = 0;
-        InventoryItemPage inventoryItemPage = inventoryPage.clickOnProductItem(itemIndex);
+        int itemIndex = 3;
+        
+        List<ProductItem> items = inventoryPage.getProductItems();
+        ProductItem productItem = items.get(itemIndex);
 
+        String expectedTitle = productItem.getTitle();
+        String expectedDesc = productItem.getDescription();
+        String expectedPrice = productItem.getPrice();
+
+        InventoryItemPage inventoryItemPage = productItem.click();
         Assert.assertTrue(driver.getCurrentUrl().contains("inventory-item.html"), "Did not navigate to the item detail page.");
-        Assert.assertTrue(inventoryItemPage.getItemDesc().isDisplayed(), "Item description is not displayed.");
-        Assert.assertTrue(inventoryItemPage.getItemImage().isDisplayed(), "Item image is not displayed.");
 
+        String actualTitle = inventoryItemPage.getTitle();
+        String actualDesc = inventoryItemPage.getDescription();
+        String actualPrice = inventoryItemPage.getPrice();
+        
+        Assert.assertEquals(actualTitle, expectedTitle);
+        Assert.assertEquals(actualDesc, expectedDesc);
+        Assert.assertEquals(actualPrice, expectedPrice);
     }
 
     @AfterMethod

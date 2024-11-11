@@ -42,4 +42,8 @@ public class BasePage {
         Actions action = new Actions(driver);
         action.sendKeys(key).build().perform();
     }
+
+    // protected void click(WebElement e) {
+    //     e.click();
+    // }
 }
