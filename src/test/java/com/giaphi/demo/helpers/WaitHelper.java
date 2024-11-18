@@ -25,4 +25,8 @@ public class WaitHelper {
     public void waitUntilDisplayed(By by, int timeOutInSeconds) {
         getWait(timeOutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+
+    public void waitUntilNotDisplayed(By by, int timeOutInSeconds) {
+        getWait(timeOutInSeconds).until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
 }

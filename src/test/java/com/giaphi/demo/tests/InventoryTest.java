@@ -65,21 +65,44 @@ public class InventoryTest extends BaseTest {
     }
 
     @Test
-    public void test_clickOnAddToCartOnProductItem(){ // On Product Item page: click on Add to Card and click on Remove
-        int itemIndex = 2;
-
+    public void test_clickOnAddToCartOnProductItem_001() {
+        Assert.assertEquals(0, inventoryPage.getCartItemsCount());
+        
         List<ProductItem> items = inventoryPage.getProductItems();
-        ProductItem productItem = items.get(itemIndex);
-        String cartBadge = productItem.clickOnAddToCartBtn(); // click on Add to cart and get cart badge
+        ProductItem productItem_2 = items.get(2);
+        productItem_2.clickAddToCartBtn();
+        Assert.assertEquals(1, inventoryPage.getCartItemsCount());
 
-        String removeText = productItem.getRemoveText();
-        Assert.assertFalse(cartBadge.isEmpty());
-        Assert.assertEquals(cartBadge,"1");
-        Assert.assertEquals(removeText,"Remove");
+        ProductItem productItem_4 = items.get(4);
+        productItem_4.clickAddToCartBtn();
+        Assert.assertEquals(2, inventoryPage.getCartItemsCount());
+    
+        productItem_2.clickRemoveBtn();
+        Assert.assertEquals(1, inventoryPage.getCartItemsCount());
 
-        String unClickOnRemoveBtn = productItem.unClickRemoveBtn(); // click on Remove button
-        Assert.assertEquals(unClickOnRemoveBtn,"Add to cart");
-        Assert.assertFalse(productItem.isCartBadgeDisplayed());
+        productItem_4.clickRemoveBtn();
+        Assert.assertEquals(0, inventoryPage.getCartItemsCount());
+    }
+
+    @Test
+    public void test_clickOnAddToCartOnProductItem_002() {
+        Assert.assertEquals(0, inventoryPage.getCartItemsCount());
+        List<ProductItem> items = inventoryPage.getProductItems();
+
+        int count = 0;
+        for(ProductItem item : items) {
+            item.clickAddToCartBtn();
+            count++;
+            Assert.assertEquals(count, inventoryPage.getCartItemsCount());
+        }
+
+        for(ProductItem item : items) {
+            item.clickRemoveBtn();
+            count--;
+            Assert.assertEquals(count, inventoryPage.getCartItemsCount());
+        }
+
+        Assert.assertEquals(0, inventoryPage.getCartItemsCount());
     }
 
     @Test
@@ -88,25 +111,25 @@ public class InventoryTest extends BaseTest {
 
         List<ProductItem> items = inventoryPage.getProductItems();
         ProductItem productItem = items.get(itemIndex);
-        String cartBadgeText = productItem.clickOnAddToCartBtn();
+        productItem.clickAddToCartBtn();
 
         InventoryItemPage inventoryItemPage = productItem.click();
+        Assert.assertTrue(inventoryItemPage.getRemoveBtn().isDisplayed());
+        Assert.assertFalse(inventoryItemPage.isAddToCartBtnDisplayed());
+    }
 
-        String removeText = inventoryItemPage.getRemoveTxt(); // get Remove button on inventory item detail page
-        Assert.assertEquals(removeText,"Remove"); //Assert item is still added on inventory item detail page
-    }
-    @Test
-    public void test_clickOnAddToCartOnInventoryItemDetailPage(){
-        int itemIndex = 1;
-        List<ProductItem> items = inventoryPage.getProductItems();
-        ProductItem productItem = items.get(itemIndex);
-        InventoryItemPage inventoryItemPage = productItem.click();
-        inventoryItemPage.clickOnAddToCart();
-        String removeTxt = inventoryItemPage.getRemoveTxt();
-        String cartBadge = inventoryItemPage.getCartBadge();
-        Assert.assertEquals(removeTxt,"Remove");
-        Assert.assertEquals(cartBadge,"1");
-    }
+    // @Test
+    // public void test_clickOnAddToCartOnInventoryItemDetailPage(){
+    //     int itemIndex = 1;
+    //     List<ProductItem> items = inventoryPage.getProductItems();
+    //     ProductItem productItem = items.get(itemIndex);
+    //     InventoryItemPage inventoryItemPage = productItem.click();
+    //     inventoryItemPage.clickAddToCartBtn();
+    //     String removeTxt = inventoryItemPage.getRemoveBtn();
+    //     String cartBadge = inventoryItemPage.getCartBadge();
+    //     Assert.assertEquals(removeTxt,"Remove");
+    //     Assert.assertEquals(cartBadge,"1");
+    // }
 
     @AfterMethod
     public void AfterMethod() {

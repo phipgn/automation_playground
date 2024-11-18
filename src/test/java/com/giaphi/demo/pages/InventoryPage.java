@@ -14,7 +14,7 @@ public class InventoryPage extends BasePage {
 
     // Locators
     By byPageHeader = By.xpath("//span[text()='Products']");
-    By byCartLink = By.xpath("//*[@id=\"shopping_cart_container\"]/a");
+    By byCartLink = By.cssSelector("#shopping_cart_container a");
     By bySortContainer = By.cssSelector("select[data-test='product-sort-container']");
     By byBurgerButton = By.className("bm-burger-button");
     By byFooter = By.className("footer");
@@ -45,5 +45,13 @@ public class InventoryPage extends BasePage {
     // Actions
     public boolean isLoadedSuccessfully() {
         return pageHeader().isDisplayed();
+    }
+
+    public int getCartItemsCount() {
+        String count = getCartLink().getText();
+        if ("".equals(count)) {
+            return 0;
+        }
+        return Integer.parseInt(count);
     }
 }
