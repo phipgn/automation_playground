@@ -34,10 +34,10 @@ public class DriverHelper {
          //options.addArguments("--remote-allow-origins=*");
 
          // This line for Windows
-         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver.exe");
+         //System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver.exe");
 
          // These lines for Linux & MacOS
-//         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
+         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
 //         options.addArguments("--no-sandbox");
 //         options.addArguments("--headless");
 //         options.addArguments("--disable-dev-shm-usage");
