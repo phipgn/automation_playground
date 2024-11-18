@@ -37,7 +37,7 @@ public class DriverHelper {
          System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver.exe");
 
          // These lines for Linux & MacOS
-//         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
+        //  System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
 //         options.addArguments("--no-sandbox");
 //         options.addArguments("--headless");
 //         options.addArguments("--disable-dev-shm-usage");

@@ -8,6 +8,9 @@ public class ProductItem extends BasePage {
     By byTitle;
     By byDesc;
     By byPrice;
+    By byImage;
+    By byAddCartBtn;
+    By byRemoveBtn;
 
     public ProductItem(WebDriver _driver, int index) {
         super(_driver);
@@ -15,6 +18,9 @@ public class ProductItem extends BasePage {
         byTitle = By.xpath("//div[@class='inventory_item'][" + index +"]//div[@class='inventory_item_name ']");
         byDesc = By.xpath("//div[@class='inventory_item'][" + index + "]//div[@class='inventory_item_desc']");
         byPrice = By.xpath("//div[@class='inventory_item'][" + index + "]//div[@class='inventory_item_price']");
+        byImage = By.xpath("//div[@class='inventory_item'][" + index + "]//img[@class='inventory_item_img']");
+        byAddCartBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Add to cart']", index));
+        byRemoveBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Remove']", index));
     }
 
     public String getTitle() {
@@ -31,10 +37,38 @@ public class ProductItem extends BasePage {
         WebElement title = getElement(byPrice);
         return title.getText();
     }
+    
+    public String getImage(){
+        WebElement title = getElement(byImage);
+        return title.getAttribute("src");
+    }
+
+    public String getAddToCartBtnText(){
+        WebElement title = getElement(byAddCartBtn);
+        return title.getText();
+    }
+
+    public String getRemoveText(){
+        WebElement title = getElement(byRemoveBtn);
+        return title.getText();
+    }
 
     // Actions
-    public InventoryItemPage click() {
+    public InventoryItemPage click() { // click on title item
         getElement(byTitle).click();
         return new InventoryItemPage(driver);
+    }
+
+    public InventoryItemPage clickImage() { // click on image item
+        getElement(byImage).click();
+        return new InventoryItemPage(driver);
+    }
+
+    public void clickAddToCartBtn() {
+        getElement(byAddCartBtn).click();
+    }
+
+    public void clickRemoveBtn() {
+        getElement(byRemoveBtn).click();
     }
 }

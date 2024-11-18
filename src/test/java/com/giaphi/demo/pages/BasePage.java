@@ -43,6 +43,10 @@ public class BasePage {
         action.sendKeys(key).build().perform();
     }
 
+    protected boolean isElementDisplayed(By by) {
+        return !driver.findElements(by).isEmpty() && driver.findElements(by).get(0).isDisplayed();
+    }
+
     // protected void click(WebElement e) {
     //     e.click();
     // }
