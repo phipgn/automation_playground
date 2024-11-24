@@ -16,9 +16,6 @@ public class InventoryItemPage extends BasePage {
     By byItemImage = By.xpath("//img[@class='inventory_details_img']");
     By byAddToCartBtn = By.xpath("//button[text()='Add to cart']");
     By byRemoveBtn = By.xpath("//button[text()='Remove']");
-    By byCartBadge = By.cssSelector("span[data-test='shopping-cart-badge']");
-    By byCartEmpty = By.cssSelector("a[data-test='shopping-cart-link']");
-
 
     // Elements
     public String getTitle() {
@@ -35,20 +32,9 @@ public class InventoryItemPage extends BasePage {
 
     public String getItemImage() { return getElement(byItemImage).getAttribute("src"); }
 
-    public WebElement getAddToCartBtn() { return getElement(byAddToCartBtn); }
-
     public WebElement getRemoveBtn() { return getElement(byRemoveBtn); }
 
-
     // Actions
-    public void clickAddToCartBtn() {
-        getElement(byAddToCartBtn).click();
-    }
-
-    public void clickRemoveBtn() {
-        getElement(byRemoveBtn).click();
-    }
-
     public boolean isAddToCartBtnDisplayed() {
         return isElementDisplayed(byAddToCartBtn);
     }
