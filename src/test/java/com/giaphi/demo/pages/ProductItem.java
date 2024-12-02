@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class ProductItem extends BasePage {
     By byTitle;
     By byDesc;
@@ -12,15 +14,17 @@ public class ProductItem extends BasePage {
     By byAddCartBtn;
     By byRemoveBtn;
 
+
     public ProductItem(WebDriver _driver, int index) {
         super(_driver);
         index++;
-        byTitle = By.xpath("//div[@class='inventory_item'][" + index +"]//div[@class='inventory_item_name ']");
+        byTitle = By.xpath("//div[@class='inventory_item'][" + index + "]//div[@class='inventory_item_name ']");
         byDesc = By.xpath("//div[@class='inventory_item'][" + index + "]//div[@class='inventory_item_desc']");
         byPrice = By.xpath("//div[@class='inventory_item'][" + index + "]//div[@class='inventory_item_price']");
         byImage = By.xpath("//div[@class='inventory_item'][" + index + "]//img[@class='inventory_item_img']");
         byAddCartBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Add to cart']", index));
         byRemoveBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Remove']", index));
+
     }
 
     public String getTitle() {
@@ -37,20 +41,10 @@ public class ProductItem extends BasePage {
         WebElement title = getElement(byPrice);
         return title.getText();
     }
-    
-    public String getImage(){
+
+    public String getImage() {
         WebElement title = getElement(byImage);
         return title.getAttribute("src");
-    }
-
-    public String getAddToCartBtnText(){
-        WebElement title = getElement(byAddCartBtn);
-        return title.getText();
-    }
-
-    public String getRemoveText(){
-        WebElement title = getElement(byRemoveBtn);
-        return title.getText();
     }
 
     // Actions

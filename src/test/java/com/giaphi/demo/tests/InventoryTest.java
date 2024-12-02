@@ -118,19 +118,6 @@ public class InventoryTest extends BaseTest {
         Assert.assertFalse(inventoryItemPage.isAddToCartBtnDisplayed());
     }
 
-    // @Test
-    // public void test_clickOnAddToCartOnInventoryItemDetailPage(){
-    //     int itemIndex = 1;
-    //     List<ProductItem> items = inventoryPage.getProductItems();
-    //     ProductItem productItem = items.get(itemIndex);
-    //     InventoryItemPage inventoryItemPage = productItem.click();
-    //     inventoryItemPage.clickAddToCartBtn();
-    //     String removeTxt = inventoryItemPage.getRemoveBtn();
-    //     String cartBadge = inventoryItemPage.getCartBadge();
-    //     Assert.assertEquals(removeTxt,"Remove");
-    //     Assert.assertEquals(cartBadge,"1");
-    // }
-
     @AfterMethod
     public void AfterMethod() {
         driver.quit();

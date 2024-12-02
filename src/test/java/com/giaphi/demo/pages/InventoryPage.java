@@ -18,6 +18,7 @@ public class InventoryPage extends BasePage {
     By bySortContainer = By.cssSelector("select[data-test='product-sort-container']");
     By byBurgerButton = By.className("bm-burger-button");
     By byFooter = By.className("footer");
+    By byShoppingCart = By.id("shopping_cart_container");;
 
     // Elements
     public WebElement pageHeader() { return getElement(byPageHeader); }
@@ -25,7 +26,6 @@ public class InventoryPage extends BasePage {
     public WebElement getSortProduct() { return getElement(bySortContainer); }
     public WebElement getBurgerButton() { return getElement(byBurgerButton); }
     public WebElement getFooter() { return getElement(byFooter); }
-
     public List<ProductItem> getProductItems() {
         List<ProductItem> items = new ArrayList<>();
         
@@ -53,5 +53,16 @@ public class InventoryPage extends BasePage {
             return 0;
         }
         return Integer.parseInt(count);
+    }
+
+    public String addProductToCart(int index) {
+        ProductItem productItem = this.getProductItems().get(index);
+        productItem.clickAddToCartBtn();
+        return productItem.getTitle();
+    }
+
+    public CartPage clickShoppingCart(){
+        getElement(byShoppingCart).click();
+        return new CartPage(driver);
     }
 }
