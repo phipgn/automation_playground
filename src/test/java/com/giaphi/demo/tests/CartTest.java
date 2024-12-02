@@ -2,7 +2,6 @@ package com.giaphi.demo.tests;
 
 import com.giaphi.demo.pages.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,6 +26,7 @@ public class CartTest extends BaseTest {
         productItemsName.add(inventoryPage.addProductToCart(2));
         cartPage = inventoryPage.clickShoppingCart();
     }
+
     @Test
     public void test_VerifyUIElements() {
         Assert.assertTrue(cartPage.getPageTitle().isDisplayed());
@@ -36,11 +36,16 @@ public class CartTest extends BaseTest {
 
     @Test
     public void test_ShowCorrectSelectedItems() {
-        List<WebElement> itemsName = cartPage.getItemsName();
-        Assert.assertEquals(productItemsName.size(), itemsName.size());
-        for (int i = 0; i < itemsName.size(); i++) {
-            Assert.assertEquals(productItemsName.get(i), itemsName.get(i).getText());
+        List<String> itemNames = cartPage.getItemNames();
+        Assert.assertEquals(productItemsName.size(), itemNames.size());
+
+        String error = "";
+        for (int i = 0; i < itemNames.size(); i++) {
+            if (!productItemsName.get(i).equals(itemNames.get(i))) {
+                error += "Mismatch found at index=" + i + "\n";
+            }
         }
+        Assert.assertTrue("".equals(error));
     }
 
     @Test

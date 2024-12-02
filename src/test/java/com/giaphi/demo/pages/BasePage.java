@@ -47,7 +47,7 @@ public class BasePage {
         return !driver.findElements(by).isEmpty() && driver.findElements(by).get(0).isDisplayed();
     }
 
-    // protected void click(WebElement e) {
-    //     e.click();
-    // }
+    protected void click(WebElement e) {
+        e.click();
+    }
 }
