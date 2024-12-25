@@ -51,9 +51,9 @@ public class LoginPage extends BasePage {
         return new InventoryPage(driver);
     }
 
-    public InventoryPage login(String username, String password) {
+    public void login(String username, String password) {
         inputUsername(username);
         inputPassword(password);
-        return clickSignInBtn();
+        clickSignInBtn();
     }
 }

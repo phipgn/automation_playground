@@ -26,8 +26,11 @@ public class InventoryItemPage extends BasePage {
         return getElement(byDescription).getText();
     }
 
-    public String getPrice() {
-        return getElement(byPrice).getText();
+    public Double getPrice() {
+        WebElement element = getElement(byPrice);
+        String priceStr = element.getText();
+        Double price = Double.parseDouble(priceStr.substring(1));
+        return price;
     }
 
     public String getItemImage() { return getElement(byItemImage).getAttribute("src"); }

@@ -14,7 +14,6 @@ public class ProductItem extends BasePage {
     By byAddCartBtn;
     By byRemoveBtn;
 
-
     public ProductItem(WebDriver _driver, int index) {
         super(_driver);
         index++;
@@ -24,7 +23,6 @@ public class ProductItem extends BasePage {
         byImage = By.xpath("//div[@class='inventory_item'][" + index + "]//img[@class='inventory_item_img']");
         byAddCartBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Add to cart']", index));
         byRemoveBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Remove']", index));
-
     }
 
     public String getTitle() {
@@ -37,9 +35,11 @@ public class ProductItem extends BasePage {
         return title.getText();
     }
 
-    public String getPrice() {
-        WebElement title = getElement(byPrice);
-        return title.getText();
+    public double getPrice() {
+        WebElement element = getElement(byPrice);
+        String priceStr = element.getText();
+        Double price = Double.parseDouble(priceStr.substring(1));
+        return price;
     }
 
     public String getImage() {

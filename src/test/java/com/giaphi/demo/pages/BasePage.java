@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +50,11 @@ public class BasePage {
 
     protected void click(WebElement e) {
         e.click();
+    }
+
+    protected void selectDropdownOption(By byDropdown, String value) {
+        WebElement dropdownElement = getElement(byDropdown);
+        Select dropdown = new Select(dropdownElement);
+        dropdown.selectByValue(value);
     }
 }

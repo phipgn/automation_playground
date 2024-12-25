@@ -21,7 +21,8 @@ public class CartTest extends BaseTest {
     public void BeforeMethod() {
         driver = setUpDriver();
         loginPage = new LoginPage(driver);
-        inventoryPage = loginPage.login("standard_user", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
+        inventoryPage = new InventoryPage(driver);
         productItemsName.add(inventoryPage.addProductToCart(0));
         productItemsName.add(inventoryPage.addProductToCart(2));
         cartPage = inventoryPage.clickShoppingCart();

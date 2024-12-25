@@ -10,7 +10,7 @@
 ### Docker:
 ```
 docker network create grid
-docker pull selenium/standalone-chrome:120.0
+docker pull selenium/standalone-chrome:121.0
 docker run -it --net grid --name my_test_c my_test /bin/bash
 docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --net grid selenium/standalone-chrome:120.0
 docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:120.0

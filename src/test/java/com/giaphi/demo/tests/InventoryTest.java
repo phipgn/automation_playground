@@ -5,6 +5,9 @@ import com.giaphi.demo.pages.InventoryPage;
 import com.giaphi.demo.pages.LoginPage;
 import com.giaphi.demo.pages.ProductItem;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -22,7 +25,8 @@ public class InventoryTest extends BaseTest {
     public void BeforeMethod() {
         driver = setUpDriver();
         loginPage = new LoginPage(driver);
-        inventoryPage = loginPage.login("standard_user", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
+        inventoryPage = new InventoryPage(driver);
     }
 
     @Test
@@ -43,11 +47,8 @@ public class InventoryTest extends BaseTest {
 
         String expectedTitle = productItem.getTitle();
         String expectedDesc = productItem.getDescription();
-        String expectedPrice = productItem.getPrice();
+        Double expectedPrice = productItem.getPrice();
         String expectedImage = productItem.getImage();
-
-        // click on title item to open inventory item page
-        //InventoryItemPage inventoryItemPage = productItem.click();
 
         // click on image item to open inventory item page
         InventoryItemPage inventoryItemPage = productItem.clickImage();
@@ -55,7 +56,7 @@ public class InventoryTest extends BaseTest {
 
         String actualTitle = inventoryItemPage.getTitle();
         String actualDesc = inventoryItemPage.getDescription();
-        String actualPrice = inventoryItemPage.getPrice();
+        Double actualPrice = inventoryItemPage.getPrice();
         String actualImage = inventoryItemPage.getItemImage();
 
         Assert.assertEquals(actualTitle, expectedTitle);
@@ -116,6 +117,19 @@ public class InventoryTest extends BaseTest {
         InventoryItemPage inventoryItemPage = productItem.click();
         Assert.assertTrue(inventoryItemPage.getRemoveBtn().isDisplayed());
         Assert.assertFalse(inventoryItemPage.isAddToCartBtnDisplayed());
+    }
+
+    @Test
+    public void test_sortPrice_LowToHigh() {
+        List<ProductItem> productItems = inventoryPage.getProductItems();
+        List<Double> expected = new ArrayList<>(productItems.stream().map(ProductItem::getPrice).toList());
+
+        inventoryPage.sortProductsByPrice_LowToHigh();
+        List<Double> actual = productItems.stream().map(ProductItem::getPrice).toList();
+        
+        Assert.assertFalse(expected.equals(actual));
+        Collections.sort(expected);
+        Assert.assertTrue(expected.equals(actual));
     }
 
     @AfterMethod

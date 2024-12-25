@@ -18,7 +18,8 @@ public class InventoryPage extends BasePage {
     By bySortContainer = By.cssSelector("select[data-test='product-sort-container']");
     By byBurgerButton = By.className("bm-burger-button");
     By byFooter = By.className("footer");
-    By byShoppingCart = By.id("shopping_cart_container");;
+    By byShoppingCart = By.id("shopping_cart_container");
+    By bySortDropdown = By.cssSelector("select[data-test='product-sort-container']");
 
     // Elements
     public WebElement pageHeader() { return getElement(byPageHeader); }
@@ -64,5 +65,9 @@ public class InventoryPage extends BasePage {
     public CartPage clickShoppingCart(){
         getElement(byShoppingCart).click();
         return new CartPage(driver);
+    }
+
+    public void sortProductsByPrice_LowToHigh() {
+        selectDropdownOption(bySortDropdown, "lohi");
     }
 }
