@@ -33,7 +33,7 @@ public class InventoryItemPage extends BasePage {
         return price;
     }
 
-    public String getItemImage() { return getElement(byItemImage).getAttribute("src"); }
+    public String getItemImage() { return getElement(byItemImage).getDomProperty("src"); }
 
     public WebElement getRemoveBtn() { return getElement(byRemoveBtn); }
 

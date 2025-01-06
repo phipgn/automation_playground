@@ -1,5 +1,6 @@
 package com.giaphi.demo.helpers;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,22 +29,24 @@ public class DriverHelper {
 //        return driver;
 //    }
 
-     public static WebDriver getDriver() {
-         var path = System.getProperty("user.dir");
-         ChromeOptions options = new ChromeOptions();
-         //options.addArguments("--remote-allow-origins=*");
+    public static WebDriver getDriver() {
+        var path = System.getProperty("user.dir");
+        ChromeOptions options = new ChromeOptions();
+        File logFile = new File(path + "/chromedriver.log");
+        ChromeDriverService service = new ChromeDriverService.Builder()
+            .usingDriverExecutable(new File(path + "/drivers/chromedriver.exe"))
+            .withVerbose(true)
+            .withLogFile(logFile)
+            .build();
 
-         // This line for Windows
-         System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver.exe");
-
-         // These lines for Linux & MacOS
-        //  System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
+        // These lines for Linux & MacOS
+    //  System.setProperty("webdriver.chrome.driver", path + "/drivers/chromedriver");
 //         options.addArguments("--no-sandbox");
 //         options.addArguments("--headless");
 //         options.addArguments("--disable-dev-shm-usage");
 //         options.addArguments("--window-size=1920x1080");
 
-         return new ChromeDriver(options);
-     }
+        return new ChromeDriver(service, options);
+    }
 }
 

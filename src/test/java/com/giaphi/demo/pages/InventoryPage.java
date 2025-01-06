@@ -27,6 +27,7 @@ public class InventoryPage extends BasePage {
     public WebElement getSortProduct() { return getElement(bySortContainer); }
     public WebElement getBurgerButton() { return getElement(byBurgerButton); }
     public WebElement getFooter() { return getElement(byFooter); }
+    
     public List<ProductItem> getProductItems() {
         List<ProductItem> items = new ArrayList<>();
         

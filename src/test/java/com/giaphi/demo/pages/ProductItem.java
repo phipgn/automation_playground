@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public class ProductItem extends BasePage {
     By byTitle;
     By byDesc;
@@ -44,7 +42,7 @@ public class ProductItem extends BasePage {
 
     public String getImage() {
         WebElement title = getElement(byImage);
-        return title.getAttribute("src");
+        return title.getDomAttribute("src");
     }
 
     // Actions

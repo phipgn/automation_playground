@@ -3,3 +3,4 @@
 /test-output/
 /.idea/*
 .idea/misc.xml
+chromedriver.log

@@ -7,7 +7,6 @@ import com.giaphi.demo.pages.ProductItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -62,7 +61,7 @@ public class InventoryTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
         Assert.assertEquals(actualDesc, expectedDesc);
         Assert.assertEquals(actualPrice, expectedPrice);
-        Assert.assertEquals(actualImage, expectedImage);
+        Assert.assertTrue(actualImage.contains(expectedImage));
     }
 
     @Test
@@ -122,14 +121,14 @@ public class InventoryTest extends BaseTest {
     @Test
     public void test_sortPrice_LowToHigh() {
         List<ProductItem> productItems = inventoryPage.getProductItems();
-        List<Double> expected = new ArrayList<>(productItems.stream().map(ProductItem::getPrice).toList());
+        List<Double> expectedPrices = new ArrayList<>(productItems.stream().map(ProductItem::getPrice).toList());
 
         inventoryPage.sortProductsByPrice_LowToHigh();
-        List<Double> actual = productItems.stream().map(ProductItem::getPrice).toList();
+        List<Double> actualPrices = productItems.stream().map(ProductItem::getPrice).toList();
         
-        Assert.assertFalse(expected.equals(actual));
-        Collections.sort(expected);
-        Assert.assertTrue(expected.equals(actual));
+        Assert.assertFalse(expectedPrices.equals(actualPrices));
+        Collections.sort(expectedPrices);
+        Assert.assertTrue(expectedPrices.equals(actualPrices));
     }
 
     @AfterMethod
