@@ -10,34 +10,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
-    private LoginPage loginPage;
-    private WebDriver driver;
+    private ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
+    private ThreadLocal<LoginPage> _loginPage = new ThreadLocal<>();
 
     @BeforeMethod
-    public void BeforeMethod() {
-        driver = setUpDriver();
-        loginPage = new LoginPage(driver); // object initialization
+    public void setUp() {
+        WebDriver driver = setUpDriver();
+        _driver.set(driver);
+        _loginPage.set(new LoginPage(driver));
     }
-
-//    @DataProvider(name = "loginData")
-//    public static Object[][] getLoginData() {
-//        return new Object[][] {
-//            { "standard_user", "secret_sauce" },
-//            { "visual_user", "secret_sauce" },
-//            { "error_user", "secret_sauce" }
-//        };
-//    }
-
-//    @Test(dataProvider = "loginData") // annotation
-//    public void testLogin(String username, String password) {
-//        loginPage.inputUsername(username);
-//        loginPage.inputPassword(password);
-//        InventoryPage inventoryPage = loginPage.clickSignInBtn();
-//        Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
-//    }
 
     @Test
     public void test_verifyUiElements() {
+        LoginPage loginPage = _loginPage.get();
+
         Assert.assertTrue(loginPage.getHeader().isDisplayed());
         Assert.assertTrue(loginPage.getUsernameInput().isDisplayed());
         Assert.assertTrue(loginPage.getPasswordInput().isDisplayed());
@@ -46,6 +32,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLogin_CorrectUsername_CorrectPassword() {
+        LoginPage loginPage = _loginPage.get();
+
         loginPage.inputUsername("standard_user");
         loginPage.inputPassword("secret_sauce");
         InventoryPage inventoryPage = loginPage.clickSignInBtn();
@@ -54,6 +42,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLogin_CorrectUsername_IncorrectPassword() {
+        LoginPage loginPage = _loginPage.get();
+
         loginPage.inputUsername("standard_user");
         loginPage.inputPassword("secret_sauce1");
         loginPage.clickSignInBtn();
@@ -62,6 +52,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLogin_IncorrectUsername_CorrectPassword() {
+        LoginPage loginPage = _loginPage.get();
+
         loginPage.inputUsername("standard_user1");
         loginPage.inputPassword("secret_sauce");
         loginPage.clickSignInBtn();
@@ -70,6 +62,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLogin_IncorrectUsername_IncorrectPassword() {
+        LoginPage loginPage = _loginPage.get();
+
         loginPage.inputUsername("standard_user1");
         loginPage.inputPassword("secret_sauce1");
         loginPage.clickSignInBtn();
@@ -77,7 +71,9 @@ public class LoginTest extends BaseTest {
     }
 
     @AfterMethod
-    public void AfterMethod() {
-        driver.quit();
+    public void tearDown() {
+        _driver.get().quit();
+        _driver.remove();
+        _loginPage.remove();
     }
 }

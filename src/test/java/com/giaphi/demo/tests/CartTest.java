@@ -11,25 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartTest extends BaseTest {
-    private CartPage cartPage;
-    private List<String> productItemsName = new ArrayList<>();
-    private InventoryPage inventoryPage;
-    private LoginPage loginPage;
-    private WebDriver driver;
+    private ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
+    private ThreadLocal<InventoryPage> _inventoryPage = new ThreadLocal<>();
+    private ThreadLocal<CartPage> _cartPage = new ThreadLocal<>();
 
     @BeforeMethod
-    public void BeforeMethod() {
-        driver = setUpDriver();
-        loginPage = new LoginPage(driver);
-        loginPage.login("standard_user", "secret_sauce");
-        inventoryPage = new InventoryPage(driver);
-        productItemsName.add(inventoryPage.addProductToCart(0));
-        productItemsName.add(inventoryPage.addProductToCart(2));
-        cartPage = inventoryPage.clickShoppingCart();
+    public void setUp() {
+        WebDriver driver = setUpDriverAndLogin();
+        _driver.set(driver);
+        _inventoryPage.set(new InventoryPage(driver));
+        _cartPage.set(new CartPage(driver));
     }
 
     @Test
     public void test_VerifyUIElements() {
+        InventoryPage inventoryPage = _inventoryPage.get();
+        inventoryPage.clickShoppingCart();
+
+        CartPage cartPage = _cartPage.get();
         Assert.assertTrue(cartPage.getPageTitle().isDisplayed());
         Assert.assertTrue(cartPage.getContinueShoppingBtn().isDisplayed());
         Assert.assertTrue(cartPage.getCheckoutBtn().isDisplayed());
@@ -37,6 +36,14 @@ public class CartTest extends BaseTest {
 
     @Test
     public void test_ShowCorrectSelectedItems() {
+        List<String> productItemsName = new ArrayList<>();
+
+        InventoryPage inventoryPage = _inventoryPage.get();
+        productItemsName.add(inventoryPage.addProductToCart(0));
+        productItemsName.add(inventoryPage.addProductToCart(2));
+        inventoryPage.clickShoppingCart();
+
+        CartPage cartPage = _cartPage.get();        
         List<String> itemNames = cartPage.getItemNames();
         Assert.assertEquals(productItemsName.size(), itemNames.size());
 
@@ -51,19 +58,30 @@ public class CartTest extends BaseTest {
 
     @Test
     public void test_clickContinueShoppingBtn() {
-        InventoryPage inventoryPage = cartPage.clickContinueShoppingBtn();
+        InventoryPage inventoryPage = _inventoryPage.get();
+        inventoryPage.clickShoppingCart();
+
+        CartPage cartPage = _cartPage.get();
+        cartPage.clickContinueShoppingBtn();
         Assert.assertTrue(inventoryPage.pageHeader().isDisplayed());
     }
 
     @Test
     public void test_clickCheckoutBtn() {
+        InventoryPage inventoryPage = _inventoryPage.get();
+        inventoryPage.clickShoppingCart();
+
+        CartPage cartPage = _cartPage.get();
         CheckoutPage checkoutPage = cartPage.clickCheckoutBtn();
         Assert.assertTrue(checkoutPage.getPageTitle().isDisplayed());
     }
 
     @AfterMethod
-    public void AfterMethod() {
-        driver.quit();
+    public void tearDown() {
+        _driver.get().quit();
+        _driver.remove();
+        _inventoryPage.remove();
+        _cartPage.remove();
     }
 
 }

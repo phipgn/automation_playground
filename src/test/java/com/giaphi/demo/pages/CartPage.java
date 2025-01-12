@@ -14,8 +14,8 @@ public class CartPage extends BasePage {
 
     // Locators
     By byPageTitle = By.cssSelector("span[data-test='title']");
-    By byContinueShoppingBtn = By.cssSelector("//button[text()='Continue Shopping']");
-    By byCheckoutBtn = By.cssSelector("//button[text()='Checkout']");
+    By byContinueShoppingBtn = By.xpath("//button[text()='Continue Shopping']");
+    By byCheckoutBtn = By.xpath("//button[text()='Checkout']");
     By byItemName = By.cssSelector("[data-test='inventory-item-name']");
 
     // Elements
