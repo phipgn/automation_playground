@@ -1,9 +1,9 @@
 package com.giaphi.demo.tests;
 
-import com.giaphi.demo.helpers.DriverHelper;
 import com.giaphi.demo.pages.LoginPage;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class BaseTest {
@@ -14,7 +14,8 @@ public class BaseTest {
     public BaseTest() { }
 
     protected WebDriver setUpDriver() {
-        WebDriver driver = DriverHelper.getDriver();
+        WebDriverManager.chromedriver().setup();
+        var driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get(BASE_URL);
@@ -22,8 +23,8 @@ public class BaseTest {
     }
 
     protected WebDriver setUpDriverAndLogin() {
-        WebDriver driver = setUpDriver();
-        LoginPage loginPage = new LoginPage(driver);
+        var driver = setUpDriver();
+        var loginPage = new LoginPage(driver);
         loginPage.login(CORRECT_USERNAME, CORRECT_PASSWORD);
         return driver;
     }

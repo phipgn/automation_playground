@@ -18,22 +18,10 @@ public class CartPage extends BasePage {
     By byCheckoutBtn = By.xpath("//button[text()='Checkout']");
     By byItemName = By.cssSelector("[data-test='inventory-item-name']");
 
-    // Elements
-    public WebElement getPageTitle() {
-        return getElement(byPageTitle);
-    }
-
-    public WebElement getContinueShoppingBtn() {
-        return getElement(byContinueShoppingBtn);
-    }
-
-    public WebElement getCheckoutBtn() {
-        return getElement(byCheckoutBtn);
-    }
-
+    // Actions
     public List<String> getItemNames() {
-        List<WebElement> itemNames = getElements(byItemName);
-        List<String> names = new ArrayList<>();
+        var itemNames = getElements(byItemName);
+        var names = new ArrayList<String>();
         for (WebElement itemName : itemNames) {
             names.add(itemName.getText());
         }

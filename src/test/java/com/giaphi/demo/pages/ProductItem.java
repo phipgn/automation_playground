@@ -23,6 +23,7 @@ public class ProductItem extends BasePage {
         byRemoveBtn = By.xpath(String.format("//div[@class='inventory_item'][%d]//button[text()='Remove']", index));
     }
 
+    // Actions
     public String getTitle() {
         WebElement title = getElement(byTitle);
         return title.getText();
@@ -45,7 +46,6 @@ public class ProductItem extends BasePage {
         return title.getDomAttribute("src");
     }
 
-    // Actions
     public InventoryItemPage click() { // click on title item
         getElement(byTitle).click();
         return new InventoryItemPage(driver);

@@ -2,8 +2,6 @@ package com.giaphi.demo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,36 +19,26 @@ public class InventoryPage extends BasePage {
     By byShoppingCart = By.id("shopping_cart_container");
     By bySortDropdown = By.cssSelector("select[data-test='product-sort-container']");
 
-    // Elements
-    public WebElement pageHeader() { return getElement(byPageHeader); }
-    public WebElement getCartLink() { return getElement(byCartLink); }
-    public WebElement getSortProduct() { return getElement(bySortContainer); }
-    public WebElement getBurgerButton() { return getElement(byBurgerButton); }
-    public WebElement getFooter() { return getElement(byFooter); }
-    
+    // Actions    
     public List<ProductItem> getProductItems() {
-        List<ProductItem> items = new ArrayList<>();
-        
-        List<WebElement> elements = getElements(By.className("inventory_item"));
+        var items = new ArrayList<ProductItem>();        
+        var elements = getElements(By.className("inventory_item"));
         if (elements.isEmpty()) {
             return items;
         }
-
         for (int i = 0; i < elements.size(); i++) {
             ProductItem item = new ProductItem(driver, i);
             items.add(item);
         }
-
         return items;
     }
 
-    // Actions
     public boolean isLoadedSuccessfully() {
-        return pageHeader().isDisplayed();
+        return getElement(byPageHeader).isDisplayed();
     }
 
     public int getCartItemsCount() {
-        String count = getCartLink().getText();
+        var count = getElement(byCartLink).getText();
         if ("".equals(count)) {
             return 0;
         }

@@ -2,7 +2,6 @@ package com.giaphi.demo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver _driver) { // not a method, a constructor (hàm dựng)
@@ -16,38 +15,17 @@ public class LoginPage extends BasePage {
     By bySignInButton = By.id("login-button");
     By byErrorMessage = By.cssSelector("h3[data-test='error']");
 
-    // Elements
-    public WebElement getHeader() {
-        return getElement(byHeader);
-    }
-
-    public WebElement getUsernameInput() {
-        return getElement(byUsernameInput);
-    }
-
-    public WebElement getPasswordInput() {
-        return getElement(byPasswordInput);
-    }
-
-    public WebElement getLoginButton() {
-        return getElement(bySignInButton);
-    }
-
-    public WebElement getErrorMessage() {
-        return getElement(byErrorMessage);
-    }
-
     // Actions
     public void inputUsername(String username) {
-        inputText(getUsernameInput(), username);
+        inputText(getElement(byUsernameInput), username);
     }
 
     public void inputPassword(String password) {
-        inputText(getPasswordInput(), password);
+        inputText(getElement(byPasswordInput), password);
     }
 
     public InventoryPage clickSignInBtn() {
-        this.getLoginButton().click();
+        getElement(bySignInButton).click();
         return new InventoryPage(driver);
     }
 
@@ -55,5 +33,14 @@ public class LoginPage extends BasePage {
         inputUsername(username);
         inputPassword(password);
         clickSignInBtn();
+    }
+
+    public String getErrorMessage() {
+        try {
+            var err = getElement(byErrorMessage);
+            return err.getText();
+        } catch (Exception ex) {
+            return "";
+        }
     }
 }
