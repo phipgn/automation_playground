@@ -1,22 +1,27 @@
 package com.saucedemo.tests;
 
+import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.LoginPage;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners(TestListener.class)
 public class LoginTest extends BaseTest {
-    private ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
     private ThreadLocal<LoginPage> _loginPage = new ThreadLocal<>();
 
     @BeforeMethod
-    void setUp() {
-        _driver.set(setUpDriver());
-        _loginPage.set(new LoginPage(_driver.get()));
+    void beforeMethod() {
+        _loginPage.set(new LoginPage(getDriver()));
+    }
+
+    @AfterMethod
+    void afterMethod() {
+        _loginPage.remove();
     }
 
     @Test
@@ -53,12 +58,5 @@ public class LoginTest extends BaseTest {
         loginPage.inputPassword("secret_sauce1");
         loginPage.clickSignInBtn();
         Assert.assertTrue(!loginPage.getErrorMessage().isEmpty());
-    }
-
-    @AfterMethod
-    void tearDown() {
-        _driver.get().quit();
-        _driver.remove();
-        _loginPage.remove();
     }
 }

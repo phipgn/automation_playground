@@ -1,25 +1,31 @@
 package com.saucedemo.tests;
 
+import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.*;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
+@Listeners(TestListener.class)
 public class CartTest extends BaseTest {
-    ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
     ThreadLocal<InventoryPage> _inventoryPage = new ThreadLocal<>();
     ThreadLocal<CartPage> _cartPage = new ThreadLocal<>();
 
     @BeforeMethod
-    void setUp() {
-        var driver = setUpDriverAndLogin();
-        _driver.set(driver);
-        _inventoryPage.set(new InventoryPage(driver));
-        _cartPage.set(new CartPage(driver));
+    void setUpTest() {
+        login();
+        _inventoryPage.set(new InventoryPage(getDriver()));
+        _cartPage.set(new CartPage(getDriver()));
+    }
+
+    @AfterMethod
+    public void tearDownTest() {
+        _inventoryPage.remove();
+        _cartPage.remove();
     }
 
     @Test
@@ -62,14 +68,6 @@ public class CartTest extends BaseTest {
         var cartPage = _cartPage.get();
         var checkoutPage = cartPage.clickCheckoutBtn();
         Assert.assertTrue(!checkoutPage.getPageTitle().isEmpty());
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        _driver.get().quit();
-        _driver.remove();
-        _inventoryPage.remove();
-        _cartPage.remove();
     }
 
 }

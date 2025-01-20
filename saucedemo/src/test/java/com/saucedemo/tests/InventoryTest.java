@@ -1,24 +1,30 @@
 package com.saucedemo.tests;
 
+import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.ProductItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners(TestListener.class)
 public class InventoryTest extends BaseTest {
     ThreadLocal<InventoryPage> _inventoryPage = new ThreadLocal<>();
-    ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
 
     @BeforeMethod
-    void setUp() {
-        _driver.set(setUpDriverAndLogin());
-        _inventoryPage.set(new InventoryPage(_driver.get()));
+    void setUpTest() {
+        login();
+        _inventoryPage.set(new InventoryPage(getDriver()));
+    }
+
+    @AfterMethod
+    void tearDownTest() {
+        _inventoryPage.remove();
     }
 
     @Test
@@ -117,12 +123,5 @@ public class InventoryTest extends BaseTest {
         Assert.assertFalse(expectedPrices.equals(actualPrices));
         Collections.sort(expectedPrices);
         Assert.assertTrue(expectedPrices.equals(actualPrices));
-    }
-
-    @AfterMethod
-    void tearDown() {
-        _driver.get().quit();
-        _driver.remove();
-        _inventoryPage.remove();
     }
 }
