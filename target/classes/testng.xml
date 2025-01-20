@@ -1,9 +1,0 @@
-<suite name="ParallelTests" parallel="methods" thread-count="5">
-    <test name="Test1">
-        <classes>
-            <class name="com.saucedemo.tests.LoginTest"/>
-            <class name="com.saucedemo.tests.InventoryTest"/>
-            <class name="com.saucedemo.tests.CartTest"/>
-        </classes>
-    </test>
-</suite>
