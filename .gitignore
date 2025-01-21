@@ -1,5 +1,6 @@
-/target/*
+*/target/*
 /.idea/*
 .idea/misc.xml
 chromedriver.log
 .mvn
+settings.json
