@@ -1,5 +1,6 @@
 package com.saucedemo.tests;
 
+import com.saucedemo.helpers.ConfigHelper;
 import com.saucedemo.helpers.DriverHelper;
 import com.saucedemo.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,6 @@ import java.time.Duration;
 
 public class BaseTest {
     private ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
-    private final String BASE_URL = "https://www.saucedemo.com/";
-    private final String CORRECT_USERNAME = "standard_user";
-    private final String CORRECT_PASSWORD = "secret_sauce";
-
     public BaseTest() { }
 
     @BeforeMethod
@@ -32,15 +29,17 @@ public class BaseTest {
     }
 
     private WebDriver setUpDriver() {
-        var driver = DriverHelper.getDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        var config = ConfigHelper.getConfig();
+        var driver = DriverHelper.getDriver(config.getHeadless());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitTimeout()));
         driver.manage().window().maximize();
-        driver.get(BASE_URL);
+        driver.get(config.getBaseUrl());
         return driver;
     }
 
     protected void login() {
+        var config = ConfigHelper.getConfig();
         var loginPage = new LoginPage(getDriver());
-        loginPage.login(CORRECT_USERNAME, CORRECT_PASSWORD);
+        loginPage.login(config.getUsername(), config.getPassword());
     }
 }

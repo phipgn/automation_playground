@@ -25,11 +25,15 @@ public class DriverHelper {
 //        return driver;
 //    }
 
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver(boolean headless) {
         WebDriverManager.chromedriver().setup();
         
         var path = System.getProperty("user.dir");
         var options = new ChromeOptions();
+        if (headless) {
+            options.addArguments("--headless");
+        }
+
         var logFile = new File(path + "/chromedriver.log");
         var service = new ChromeDriverService.Builder()
             // .usingDriverExecutable(new File(path + "/drivers/chromedriver.exe"))
