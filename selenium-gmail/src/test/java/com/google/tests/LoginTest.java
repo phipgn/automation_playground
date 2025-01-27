@@ -13,13 +13,14 @@ public class LoginTest {
     
     @Test
     void test_Login() {
-        var username = "xxx";
-        var password = "xxx";
-        var secret = "xxx";
+        var username = System.getenv("GOOGLE_USERNAME");
+        var password = System.getenv("GOOGLE_PASSWORD");
+        var secret = System.getenv("GOOGLE_SECRET");
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
+        // options.addArguments("--headless");
         var driver = new ChromeDriver(options);
         
         var loginPage = new LoginPage(driver);
