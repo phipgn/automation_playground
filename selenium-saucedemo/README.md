@@ -34,7 +34,6 @@ mvn clean test-compile
 ### To run all tests from LoginTest class:
 ```
 mvn clean test -Dtest=LoginTest
-java -cp "target\test-classes;lib\*" org.testng.TestNG -testclass "com.saucedemo.tests.LoginTest"
 ```
 
 ### To run only testLogin() from LoginTest class:
