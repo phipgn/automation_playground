@@ -4,3 +4,4 @@
 chromedriver.log
 .mvn
 settings.json
+/node_modules
