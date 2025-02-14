@@ -1,5 +1,6 @@
 package com.giaphi;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.testng.Assert;
@@ -11,6 +12,97 @@ import org.testng.asserts.SoftAssert;
  * Unit test for simple App.
  */
 public class AppTest {
+    
+    private int[] getRandomNumbers(int n, int bound) {
+        var random = new Random();
+        var numbers = new int[n];
+        for (var i = 0; i < numbers.length; i++) {
+            numbers[i] = random.nextInt(bound);
+            System.out.print(numbers[i] + " ");
+        }
+        System.out.println("");
+        return numbers;
+    }
+
+    /**
+     * Reverse a number.
+     * Ex: 123456 -> 654321
+     */
+    @DataProvider(name = "reverseANumberData")
+    Object[][] getNumbers() {
+        return new Object[][] {
+            { 123456, 654321 },
+            { 2345678, 8765432 }
+        };
+    }
+
+    @Test(dataProvider = "reverseANumberData")
+    void testReverseANumber(int n, int expected) {
+        var r = 0;
+        while (n > 0) {
+            r = r*10 + n%10;
+            n = n/10;
+        };
+        Assert.assertEquals(r, expected);
+    }
+
+    /**
+     * Fizz buzz is a group word game for children to teach them about division.
+     * Players take turns to count incrementally, replacing any number divisible by three with the word "fizz", 
+     * and any number divisible by five with the word "buzz", 
+     * and any number divisible by both three and five with the word "fizzbuzz".
+     */
+    @Test
+    void testFizzBuzz() {
+        for (var i = 0; i <= 20; i++) {
+            if (i % 3 == 0) {
+                System.out.println(i % 5 == 0 ? "Fizzbuzz" : "Fizz");
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+
+    /**
+     * Generate a list of 10 random numbers;
+     * Write a method to find the number with greatest value from the list.
+     */
+    private int findMaxNumber(int[] numbers) {
+        var max = Integer.MIN_VALUE;
+        for (var number : numbers) {
+            if (max < number) {
+                max = number;
+            }
+        }
+        return max;
+    }
+
+    @Test
+    void testFindMaxNumber() {
+        var numbers = getRandomNumbers(10, 1000);
+        System.out.println("Max number is: " + findMaxNumber(numbers));
+    }
+
+    /**
+     * Print n Fibonacci number, use a method.
+     */    
+    @Test
+    void testPrintFibonacciNumber() {
+        var n = 10;
+        var a = 1;
+        var b = 2;
+        System.out.print(a + " ");
+        System.out.print(b + " ");
+
+        for (var i = 2; i < n; i++) {
+            var nextNumber = a + b;
+            a = b;
+            b = nextNumber;
+            System.out.print(nextNumber + " ");
+        }
+    }
 
     @Test
     void testMultiplicationTable() {

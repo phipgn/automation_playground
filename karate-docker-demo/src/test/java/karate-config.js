@@ -1,7 +1,7 @@
 function fn() {
     const env = karate.env;
     const config = {
-        baseUrl: '',
+        baseUrl: 'https://reqres.in',
         utilPaths: {
             random: 'classpath:utils/random.feature'
         }

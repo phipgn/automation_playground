@@ -1,13 +1,38 @@
 Feature: Test
 
-    Scenario Outline: Test <a> + <b> == <c>
-        * def a = <a>
-        * def b = <b>
-        * def c = a + b
-        * assert c == <expected>
+    Background:
+        * url baseUrl
+
+    Scenario Outline: List users
+        * path '/api/users'
+        * param page = <page>
+        * method get
+        * status 200
+        * match response ==
+        """
+        {
+            page: <page>,
+            per_page: 6,
+            total: 12,
+            total_pages: 2,
+            data: '#[]',
+            support: {
+                url: '#string',
+                text: '#string'
+            }
+        }
+        """
+        * match each response.data ==
+        """
+        {
+            id: '#number',
+            email: '#string',
+            first_name: '#string',
+            last_name: '#string',
+            avatar: '#string'
+        }
+        """
 
         Examples:
-            | a  | b | expected |
-            | 1  | 1 | 2        |
-            | 9  | 1 | 10       |
-            | -1 | 3 | 2        |
+            | page |
+            | 2    |
