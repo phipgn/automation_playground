@@ -1,9 +1,11 @@
 package com.giaphi;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.testng.annotations.Test;
 
+@SuppressWarnings("unused")
 public class SortTest {
     private int[] getNumbers(int n, int bound) {
         var random = new Random();
@@ -17,9 +19,7 @@ public class SortTest {
 
     private void printNumbers(int[] numbers) {
         System.out.print("\n");
-        for (var number : numbers) {
-            System.out.print(number + " ");
-        }
+        Arrays.stream(numbers).forEach(n -> System.out.print(n + " "));
     }
 
     @Test

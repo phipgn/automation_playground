@@ -1,21 +1,38 @@
 package com.giaphi;
 
+import java.util.Random;
+
 /**
  * Hello world!
  */
 public class App {
     public static void main(String[] args) {
-        var arr = new int[] { 151, 99, 178, 126, 31, 36, 70, 129, 117, 159 };
-        var max = arr[0];
-        var second_max = arr[0];
+        var n = 10;
+        var numbers = new int[n];
+        var random = new Random();
+        for (var i = 0; i < n; i++) {
+            numbers[i] = random.nextInt(100);
+        }
 
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                second_max = max;
-                max = arr[i];
-            } else if (arr[i] > second_max) {
-                second_max = arr[i];
+        for (var number : numbers) {
+            System.out.print(number + " ");
+        }
+
+        for (var i = 0; i < numbers.length - 1; i++) {
+            for (var j = i + 1; j < numbers.length; j++) {
+                if (numbers[j] < numbers[i]) {
+                    var t = numbers[j];
+                    numbers[j] = numbers[i];
+                    numbers[i] = t;
+                }
             }
         }
+        
+        System.out.print("\n");
+        for (var number : numbers) {
+            System.out.print(number + " ");
+        }
+
+        
     }
 }
