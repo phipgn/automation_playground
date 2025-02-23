@@ -6,33 +6,21 @@ import java.util.Random;
  * Hello world!
  */
 public class App {
+    private static int factorial(int n) {
+        if (n == 1) return 1;
+        return n * factorial(n - 1);
+    }
+
     public static void main(String[] args) {
-        var n = 10;
-        var numbers = new int[n];
-        var random = new Random();
-        for (var i = 0; i < n; i++) {
-            numbers[i] = random.nextInt(100);
-        }
-
-        for (var number : numbers) {
-            System.out.print(number + " ");
-        }
-
-        for (var i = 0; i < numbers.length - 1; i++) {
-            for (var j = i + 1; j < numbers.length; j++) {
-                if (numbers[j] < numbers[i]) {
-                    var t = numbers[j];
-                    numbers[j] = numbers[i];
-                    numbers[i] = t;
-                }
-            }
-        }
-        
-        System.out.print("\n");
-        for (var number : numbers) {
-            System.out.print(number + " ");
-        }
-
-        
+        var n = 6;
+        System.out.println(factorial(n));
     }
 }
+
+// = f(6)
+// = 6 * f(5)
+// = 6 * 5 * f(4)
+// = 6 * 5 * 4 * f(3)
+// = 6 * 5 * 4 * 3 * f(2)
+// = 6 * 5 * 4 * 3 * 2 * f(1)
+// = 6 * 5 * 4 * 3 * 2 * 1 = 720
