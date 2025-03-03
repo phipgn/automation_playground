@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
         var loginPage = _loginPage.get();
         loginPage.inputUsername("standard_user");
         loginPage.inputPassword("secret_sauce");
-        InventoryPage inventoryPage = loginPage.clickSignInBtn();
+        var inventoryPage = loginPage.clickSignInBtn();
         Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
     }
 

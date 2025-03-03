@@ -3,7 +3,7 @@ Feature: Test
     Background:
         * url baseUrl
 
-    Scenario Outline: List users
+    Scenario Outline: List users        
         * path '/api/users'
         * param page = <page>
         * method get
@@ -32,6 +32,7 @@ Feature: Test
             avatar: '#string'
         }
         """
+        * match response.data[1].email == 'george.bluth@reqres.in'
 
         Examples:
             | page |

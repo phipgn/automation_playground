@@ -16,4 +16,9 @@ public class CheckingAccount extends BankAccount {
             System.out.println("Withdrawal exceeds overdraft limit.");
         }
     }
+
+    @Override
+    public void notifyBalance() {
+        System.out.println("My checking account's balance: " + balance);
+    }
 }

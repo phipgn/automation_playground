@@ -1,19 +1,15 @@
 package com.giaphi.banks;
 
-public class BankAccount {
-    // Encapsulation --> hiding data, control access
-    private String owner;
+public abstract class BankAccount {
+    protected String owner;
     protected double balance;
     
-    // setter getter
     public BankAccount(String owner, double balance) {
         this.owner = owner;
         this.balance = balance;
     }
 
-    public double getBalance() {
-        return balance;
-    }
+    public abstract void notifyBalance();
 
     public void deposit(double amount) { // prevent invalid states
         if (amount > 0) {

@@ -10,19 +10,13 @@ import com.giaphi.humans.People;
 
 public class Main {
     public static void main(String[] args) {
-        var savingsAccount = new SavingsAccount("Kien", 1000, 3.5);
-        System.out.println(savingsAccount.getBalance());
-        // account.withdraw(999);
-        // savingsAccount.deposit(0);
-        // System.out.println(savingsAccount.getBalance());
-
-        // savingsAccount.applyInterest();
-        // System.out.println(savingsAccount.getBalance());
-
-        var checkingAccount = new CheckingAccount("Kien", 1000, 200);
-        checkingAccount.deposit(2000);
-        System.out.println(checkingAccount.getBalance());
-        checkingAccount.withdraw(201);
-        System.out.println(checkingAccount.getBalance());
+        // var account1 = new BankAccount("Phi", 10000);
+        BankAccount account1 = new SavingsAccount("Phi", 10000, 3.5);
+        BankAccount account2 = new CheckingAccount("Phi", 10000, 3.5);
+        // account1.deposit(1000);
+        // account1.applyInterest();
+        // account1.applyInterest(0.5);
+        // account1.applyInterest(1);
+        // account1.notifyBalance();
     }
 }

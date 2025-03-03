@@ -25,6 +25,29 @@ public class AppTest {
     }
 
     /**
+     * GCD (Greatest common divisor)
+     * LCM (Least common multiple)
+     */
+    @Test
+    void testGcdAndLcm() {
+        var a = 12;
+        var b = 8;
+
+        var gcd = a;
+        while (a % gcd != 0 || b % gcd != 0) {
+            gcd--;
+        }
+
+        var lcm = a;
+        while (lcm % a != 0 || lcm % b != 0) {
+            lcm++;
+        }
+
+        System.out.println(String.format("GCD (%d, %d): %d", a, b, gcd));
+        System.out.println(String.format("LCM (%d, %d): %d", a, b, lcm));
+    }
+
+    /**
      * Reverse a number.
      * Ex: 123456 -> 654321
      */

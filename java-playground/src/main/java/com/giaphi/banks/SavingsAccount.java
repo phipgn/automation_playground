@@ -1,14 +1,14 @@
 package com.giaphi.banks;
 
 public class SavingsAccount extends BankAccount {
-    public double interestRate;
+    private double interestRate;
 
     public SavingsAccount(String owner, double balance, double interestRate) {
         super(owner, balance);
         this.interestRate = interestRate;
     }
 
-    public void applyInterest() {
+    public void applyInterest() { // business logic
         balance += balance * interestRate;
     }
 
@@ -18,5 +18,10 @@ public class SavingsAccount extends BankAccount {
 
     public void applyInterest(int x) {
         balance += balance * x;
+    }
+
+    @Override
+    public void notifyBalance() {
+        System.out.println("My savings account's balance: " + balance);
     }
 }
