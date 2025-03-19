@@ -53,8 +53,8 @@ public class BasePage {
     }
 
     protected void selectDropdownOption(By byDropdown, String value) {
-        WebElement dropdownElement = getElement(byDropdown);
-        Select dropdown = new Select(dropdownElement);
+        var dropdownElement = getElement(byDropdown);
+        var dropdown = new Select(dropdownElement);
         dropdown.selectByValue(value);
     }
 }
