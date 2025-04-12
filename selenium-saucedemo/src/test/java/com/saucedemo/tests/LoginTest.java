@@ -1,12 +1,17 @@
 package com.saucedemo.tests;
 
+import com.saucedemo.helpers.CsvHelper;
 import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.LoginPage;
 
+import java.io.IOException;
+import java.util.Iterator;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -24,11 +29,16 @@ public class LoginTest extends BaseTest {
         _loginPage.remove();
     }
 
-    @Test
-    void testLogin_CorrectUsername_CorrectPassword() {
+    @DataProvider(name="loginData")
+    public Iterator<Object[]> loginData() throws IOException {
+        return CsvHelper.readCsv(System.getProperty("user.dir") + "/src/test/java/com/saucedemo/data/login.csv");
+    }
+
+    @Test(dataProvider = "loginData")
+    void testLogin_CorrectUsername_CorrectPassword(String username, String password) {
         var loginPage = _loginPage.get();
-        loginPage.inputUsername("standard_user");
-        loginPage.inputPassword("secret_sauce");
+        loginPage.inputUsername(username);
+        loginPage.inputPassword(password);
         var inventoryPage = loginPage.clickSignInBtn();
         Assert.assertTrue(inventoryPage.isLoadedSuccessfully());
     }
