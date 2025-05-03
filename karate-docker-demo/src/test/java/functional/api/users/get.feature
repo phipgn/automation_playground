@@ -1,21 +1,23 @@
-Feature: Test
+Feature: List users
 
     Background:
         * url baseUrl
 
-    Scenario Outline: List users        
-        * path '/api/users'
-        * param page = <page>
-        * method get
+    Scenario Outline: 200 happy case: page=<page>
+        * def page = <page>
+        * path 'api/users'
+        * param page = page
+        * method GET
         * status 200
+        * match response.page == page
         * match response ==
         """
         {
-            page: <page>,
+            page: '#number',
             per_page: 6,
-            total: 12,
-            total_pages: 2,
-            data: '#[]',
+            total: '#number',
+            total_pages: '#number',
+            data: '#[6]',
             support: {
                 url: '#string',
                 text: '#string'
@@ -32,8 +34,8 @@ Feature: Test
             avatar: '#string'
         }
         """
-        * match response.data[1].email == 'george.bluth@reqres.in'
 
         Examples:
-            | page |
-            | 2    |
+        | page |
+        | 1    |
+        | 2    | 

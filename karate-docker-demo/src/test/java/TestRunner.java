@@ -14,7 +14,7 @@ public class TestRunner {
     @Test
     void runTest() {
         var results = Runner.path(
-            "classpath:individuals/post.feature")
+            "classpath:functional")
             .outputCucumberJson(true)
             .outputJunitXml(true)
             .tags("~@skipme")
