@@ -37,7 +37,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: {
-        baseURL: process.env.BASE_URL,
+        baseURL: 'https://www.saucedemo.com/',
         screenshot: 'only-on-failure',
         ...devices['Desktop Chrome'] 
       },

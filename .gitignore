@@ -5,3 +5,5 @@ chromedriver.log
 .mvn
 settings.json
 /node_modules
+target/karate.log
+.vscode/launch.json
