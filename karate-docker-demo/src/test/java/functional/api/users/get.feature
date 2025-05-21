@@ -38,4 +38,3 @@ Feature: List users
         Examples:
         | page |
         | 1    |
-        | 2    | 

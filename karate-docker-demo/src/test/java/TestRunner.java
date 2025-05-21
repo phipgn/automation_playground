@@ -18,7 +18,7 @@ public class TestRunner {
             .outputCucumberJson(true)
             .outputJunitXml(true)
             .tags("~@skipme")
-            .parallel(5);
+            .parallel(1);
         
         generateReport(results.getReportDir(), "karate-demo");
         assertEquals(0, results.getFailCount(), results.getErrorMessages());

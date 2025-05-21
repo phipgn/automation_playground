@@ -6,6 +6,6 @@ function fn() {
             random: 'classpath:utils/random.feature'
         }
     };
-
+    config.headers = { 'x-api-key': 'reqres-free-v1' };
     return config;
 }

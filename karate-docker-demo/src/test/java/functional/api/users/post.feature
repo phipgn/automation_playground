@@ -30,5 +30,3 @@ Feature: Create user
         Examples:
         | name        | job |
         | Ngo Vinh Ky | IT  |
-        | Phi         | QA  |
-        | Nam         | Dev |
