@@ -1,7 +1,9 @@
-package com.saucedemo.tests;
+package com.saucedemo.tests.functional;
 
 import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.*;
+import com.saucedemo.tests.BaseTest;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

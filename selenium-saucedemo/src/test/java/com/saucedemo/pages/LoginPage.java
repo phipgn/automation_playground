@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BasePage {
-    public LoginPage(WebDriver _driver) { // not a method, a constructor (hàm dựng)
+    public LoginPage(WebDriver _driver) {
         super(_driver);
     }
 

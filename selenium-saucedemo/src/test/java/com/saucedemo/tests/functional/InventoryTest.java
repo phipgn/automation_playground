@@ -1,8 +1,9 @@
-package com.saucedemo.tests;
+package com.saucedemo.tests.functional;
 
 import com.saucedemo.listeners.TestListener;
 import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.ProductItem;
+import com.saucedemo.tests.BaseTest;
 
 import java.util.ArrayList;
 import java.util.Collections;

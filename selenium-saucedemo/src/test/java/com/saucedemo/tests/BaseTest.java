@@ -2,7 +2,8 @@ package com.saucedemo.tests;
 
 import com.saucedemo.helpers.ConfigHelper;
 import com.saucedemo.helpers.DriverHelper;
-import com.saucedemo.pages.LoginPage;
+
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,15 +12,16 @@ import java.time.Duration;
 
 public class BaseTest {
     private ThreadLocal<WebDriver> _driver = new ThreadLocal<>();
+    
     public BaseTest() { }
 
     @BeforeMethod
-    void setUp() {
+    protected void setUp() {
         _driver.set(this.setUpDriver());
     }
 
     @AfterMethod
-    void tearDown() {
+    protected void tearDown() {
         _driver.get().quit();
         _driver.remove();
     }
@@ -39,7 +41,13 @@ public class BaseTest {
 
     protected void login() {
         var config = ConfigHelper.getConfig();
-        var loginPage = new LoginPage(getDriver());
-        loginPage.login(config.getUsername(), config.getPassword());
+        var sessionCookie = new Cookie.Builder("session-username", config.getUsername())
+            .domain("www.saucedemo.com")
+            .path("/")
+            .isHttpOnly(false)
+            .isSecure(false)
+            .build();
+        getDriver().manage().addCookie(sessionCookie);
+        getDriver().navigate().to(config.getBaseUrl() + "inventory.html");
     }
 }

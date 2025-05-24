@@ -1,9 +1,9 @@
-package com.saucedemo.tests;
+package com.saucedemo.tests.functional;
 
 import com.saucedemo.helpers.CsvHelper;
 import com.saucedemo.listeners.TestListener;
-import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.LoginPage;
+import com.saucedemo.tests.BaseTest;
 
 import java.io.IOException;
 import java.util.Iterator;
