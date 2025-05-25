@@ -32,7 +32,8 @@ public class BaseTest {
 
     private WebDriver setUpDriver() {
         var config = ConfigHelper.getConfig();
-        var driver = DriverHelper.getDriver(config.getHeadless());
+        var driver = DriverHelper.getRemoteDriver();
+        // var driver = DriverHelper.getDriver(config.getHeadless());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitTimeout()));
         driver.manage().window().maximize();
         driver.get(config.getBaseUrl());

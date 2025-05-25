@@ -9,11 +9,31 @@
 ## CLI commands
 ### Docker:
 ```
+# To create a new network
 docker network create grid
+
+# To see all networks
+docker network ls
+
+# Download the image of selenium standalone chrome
 docker pull selenium/standalone-chrome:121.0
-docker run -it --net grid --name my_test_c my_test /bin/bash
-docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --net grid selenium/standalone-chrome:120.0
-docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:120.0
+
+# Create a container for selenium standalone chrome
+docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --net grid --name selenium-hub selenium/standalone-chrome:121.0
+
+# Create docker image from my test source
+docker build -t selenium_saucedemo .
+
+# Add /bin/bash if you want to stay in the terminal after creating the container
+docker run -it --net grid --name selenium_saucedemo_container selenium_saucedemo /bin/bash
+```
+
+```
+# Selenium Grid UI
+http://localhost:4444/ui
+
+# To get access into the Selenium Grid server
+http://localhost:7900/?autoconnect=1&resize=scale&password=secret
 ```
 
 ### To copy all dependencies into "lib" folder:
